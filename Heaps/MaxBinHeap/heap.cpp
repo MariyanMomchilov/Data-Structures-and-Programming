@@ -20,9 +20,9 @@ private:
         int max = array[i];
         int li = left(i);
         int ri = right(i);
-        if (li < arraySize && max < array[li])
+        if (li < heapSize && max < array[li])
             max = array[li];
-        if (ri < arraySize && max < array[ri])
+        if (ri < heapSize && max < array[ri])
             max = array[ri];
 
         if (max == array[ri])
@@ -40,15 +40,13 @@ private:
     }
 
 public:
-    Heap(int *arr = nullptr, size_t arrayS = 0): array(arr), arraySize(arrayS), heapSize(0)
+    Heap(int *arr = nullptr, size_t arrayS = 0): array(arr), arraySize(arrayS), heapSize(arrayS)
     {
-        if (arraySize != 0)
+        if (arraySize)
         {
-            heapSize = arraySize/2 + 1;
-            for (int i = arraySize/2 - 1; i > -1; i--)
+            for (int i = (arraySize - 1)/2; i > -1; i--)
             {
                 heapify(i);
-                heapSize++;
             }
         }
     }
