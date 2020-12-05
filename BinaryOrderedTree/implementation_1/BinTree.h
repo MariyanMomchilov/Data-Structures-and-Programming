@@ -1,6 +1,7 @@
 #ifndef __BTREE
 #define __BTREE
 #include <iostream>
+#include <stack>
 
 template <class T>
 class BinTree
@@ -19,6 +20,9 @@ private:
     Node* clone(Node *node);
     void print(Node* node) const;
 
+    template <class K>
+    friend std::ostream& operator<<(std::ostream& os, BinTree<K> &t);
+
 public:
 
     BinTree(Node* rt = nullptr);
@@ -32,6 +36,24 @@ public:
     bool remove(const T& data);
     bool empty() const;
     void print() const;
+
+    class Iterator
+    {
+    private:
+        std::stack<Node *> s;
+        T last;
+    public:
+        Iterator() = default;
+        Iterator(const std::stack<Node *> &st, T l);
+        ~Iterator() = default;
+        Iterator& operator++();
+        T& operator*();
+        T operator*() const;
+        bool operator!=(const Iterator& it) const;
+    };
+
+    Iterator begin();
+    Iterator end();
 };
 
 
