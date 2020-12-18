@@ -15,11 +15,16 @@ private:
         Entity *next;
     };
 
+
+    template <class K, class V>
+    friend std::ostream& operator<<(std::ostream& os, const Map<K, V> &m);
+    size_t applyHash(const Key&) const;
+    Entity* getEntity(const Key&) const;
+
+
     size_t size;
     Entity **table;
     std::function<size_t(const Key&)> hash;
-    size_t applyHash(const Key&) const;
-    Entity* getEntity(const Key&);
 
 public:
     Map(const std::function<size_t(const Key&)> &h, size_t s = 0);
@@ -46,11 +51,10 @@ public:
         bool operator!=(const ConstIterator&) const;
     };
 
-    ConstIterator begin();
-    ConstIterator end();
+    ConstIterator begin() const;
+    ConstIterator end() const;
     
     ~Map();
-    
 };
 
 #include "map.cpp"

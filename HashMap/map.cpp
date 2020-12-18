@@ -27,7 +27,7 @@ bool Map<Key, Value>::hasKey(const Key& key) const
 }
 
 template <class Key, class Value>
-typename Map<Key, Value>::Entity* Map<Key, Value>::getEntity(const Key& key)
+typename Map<Key, Value>::Entity* Map<Key, Value>::getEntity(const Key& key) const
 {
     size_t index = applyHash(key);
     if (table[index] == nullptr)
@@ -115,13 +115,13 @@ bool Map<Key, Value>::ConstIterator::operator!=(const ConstIterator& it) const
 }
 
 template <class Key, class Value>
-typename Map<Key, Value>::ConstIterator Map<Key, Value>::begin()
+typename Map<Key, Value>::ConstIterator Map<Key, Value>::begin() const
 {
     return ConstIterator(table, size);
 }
 
 template <class Key, class Value>
-typename Map<Key, Value>::ConstIterator Map<Key, Value>::end()
+typename Map<Key, Value>::ConstIterator Map<Key, Value>::end() const
 {
     return ConstIterator();
 }
@@ -147,5 +147,18 @@ Map<Key, Value>::~Map()
     if (size != 0)
         delete[] table;
 }
+
+template <class K, class V>
+std::ostream& operator<<(std::ostream& os, const Map<K, V> &m)
+{
+    os << "{\n";
+    for (auto k: m)
+    {
+        os << "\t\"" << k << "\": " << m[k] << '\n';
+    }
+    os << "}";
+    return os;
+}
+
 
 #endif
