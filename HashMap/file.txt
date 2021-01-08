@@ -1,0 +1,7 @@
+{
+	"malteser": 50
+	"frenchie": 3
+	"kangal": 8
+	"american staffordshire terrier": 10
+	"cane corso": 50
+}
